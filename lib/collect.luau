@@ -61,7 +61,9 @@ local function collect<D, T...>(event: signal_like<D, T...>): (() -> (number, T.
         end
     end
 
-    local disconnect = event:Connect(function(...)
+    local connect = event.Connect or event.connect
+    assert(connect ~= nil, "Signal is missing a Connect function - is it really a signal?")
+    local disconnect = connect(event, function(...)
         table.insert(storage, { ... })
         mt.__iter = iter :: any
     end)

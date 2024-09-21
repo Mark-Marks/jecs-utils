@@ -1,7 +1,7 @@
 --!strict
 --!optimize 2
 local handle = require("./handle")
-local world = require("./world").get()
+local WORLD = require("./world").get
 
 local refs = {}
 
@@ -11,8 +11,9 @@ local refs = {}
 --- @param key any
 --- @return handle
 local function ref(key: any): handle.handle
+    local world = WORLD()
     if not key then
-        return handle.new(world:entity())
+        return handle(world:entity())
     end
 
     local entity = refs[key]
@@ -21,7 +22,7 @@ local function ref(key: any): handle.handle
         refs[key] = entity
     end
 
-    return handle.new(entity)
+    return handle(entity)
 end
 
 return ref

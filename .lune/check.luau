@@ -12,3 +12,4 @@ end
 start_process("lune run analyze")
 start_process("stylua lib/")
 start_process("selene lib/")
+start_process("luau test/tests.luau")

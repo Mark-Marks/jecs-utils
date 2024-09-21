@@ -3,7 +3,7 @@
     "LuauTinyControlFlowAnalysis": "true"
   },
   "luau-lsp.require.mode": "relativeToFile",
-  "luau-lsp.require.directoryAliases": {
-    "@pkg": "Packages/"
+  "luau-lsp.require.fileAliases": {
+    "@jecs": "lib/jecs"
   }
 }

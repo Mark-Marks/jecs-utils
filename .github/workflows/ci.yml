@@ -66,6 +66,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run tests
+      - name: Run Unit Tests
         run: |
-          lune run test/runner.luau
+          output=$(luau test/tests.luau)
+          echo "$output"
+          if [[ "$output" == *"0 fails"* ]]; then
+            echo "Unit Tests Passed"
+          else
+            echo "Error: One or More Unit Tests Failed."
+            exit 1
+          fi

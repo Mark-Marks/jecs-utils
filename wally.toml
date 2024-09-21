@@ -15,4 +15,3 @@ include = [
 ]
 
 [dependencies]
-jecs = "ukendio/jecs@0.2.10"

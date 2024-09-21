@@ -21,10 +21,8 @@
             "mode": "relativeToFile",
             "fileAliases": {
               "@jecs_utils": "lib",
+              "@jecs": "lib/jecs",
               "@testkit": "test/testkit"
-            },
-            "directoryAliases": {
-              "@pkg": "Packages/"
             }
           }
         },

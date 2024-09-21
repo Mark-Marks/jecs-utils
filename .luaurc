@@ -2,6 +2,7 @@
     "languageMode": "strict",
     "aliases": {
         "jecs_utils": "lib",
-        "testkit": "test/testkit"
+        "testkit": "test/testkit",
+        "jecs": "lib/jecs"
     }
 }

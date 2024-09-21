@@ -1,11 +1,11 @@
 --!strict
 --!optimize 2
-local jecs = require("@pkg/jecs")
+local jecs = require("./jecs")
 type entity<T = nil> = jecs.Entity<T>
 type i53 = number
 
 local ref = require("./ref")
-local world = require("./world").get()
+local WORLD = require("./world").get
 
 --- A replicator keeps track of all entities with the passed components and their values -
 --- whenever a component is changed (add, change, remove) and the replicator listens to it, it's also changed within the contained raw data.\
@@ -122,6 +122,7 @@ export type changes = {
 --- @param ... entity
 --- @return replicator
 local function replicator(...: entity): replicator
+    local world = WORLD()
     local components = { ... }
 
     -- don't index a changes table start

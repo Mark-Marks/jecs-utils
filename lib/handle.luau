@@ -1,10 +1,10 @@
 --!strict
 --!optimize 2
-local jecs = require("@pkg/jecs")
-export type entity<T = nil> = jecs.Entity<T>
-export type id<T = nil> = entity<T> | jecs.Pair
+local jecs = require("./jecs")
+type entity<T = nil> = jecs.Entity<T>
+type id<T = nil> = entity<T> | jecs.Pair
 
-local world = require("./world").get()
+local world = require("./world").get
 
 type interface = {
     __index: interface,
@@ -44,34 +44,34 @@ function handle.new(entity: entity)
 end
 
 function handle:has(...: id): boolean
-    return world:has(self.entity, ...)
+    return world():has(self.entity, ...)
 end
 
 handle.get = function(self: handle, a: id, b: id?, c: id?, d: id?)
-    return world:get(self.entity, a, b :: any, c :: any, d :: any)
+    return world():get(self.entity, a, b :: any, c :: any, d :: any)
 end :: any
 
 function handle:add<T>(id: id<T>): handle
-    world:add(self.entity, id)
+    world():add(self.entity, id)
     return self
 end
 
 function handle:set<T>(id: id<T>, value: T): handle
-    world:set(self.entity, id, value)
+    world():set(self.entity, id, value)
     return self
 end
 
 function handle:remove(id: id): handle
-    world:remove(self.entity, id)
+    world():remove(self.entity, id)
     return self
 end
 
 function handle:delete()
-    world:delete(self.entity)
+    world():delete(self.entity)
 end
 
 function handle:id(): entity
     return self.entity
 end
 
-return handle
+return handle.new

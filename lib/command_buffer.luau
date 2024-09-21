@@ -1,10 +1,10 @@
 --!strict
 --!optimize 2
-local jecs = require("@pkg/jecs")
+local jecs = require("./jecs")
 type entity<T = nil> = jecs.Entity<T>
 type id<T = nil> = jecs.Id<T>
 
-local world = require("./world").get()
+local WORLD = require("./world").get
 
 --- `map<component_id, array<entity_id>>`
 local add_commands: { [id]: { entity } } = {}
@@ -15,7 +15,7 @@ local remove_commands: { [id]: { entity } } = {}
 --- `array<entity_id>`
 local delete_commands: { entity } = {}
 
-type command_buffer = {
+export type command_buffer = {
     --- Execute all buffered commands and clear the buffer
     flush: () -> (),
 
@@ -30,48 +30,46 @@ type command_buffer = {
 }
 
 local function flush()
-    local adds = add_commands
-    local sets = set_commands
-    local removes = remove_commands
-    local deletes = delete_commands
+    local world = WORLD()
+
+    for _, entity in delete_commands do
+        world:delete(entity)
+    end
+
+    for component, entities in add_commands do
+        for _, entity in entities do
+            if delete_commands[entity] then
+                continue
+            end
+
+            world:add(entity, component)
+        end
+    end
     table.clear(add_commands)
+
+    for component, entities in set_commands do
+        for entity, value in entities do
+            if delete_commands[entity] then
+                continue
+            end
+
+            world:set(entity, component, value)
+        end
+    end
     table.clear(set_commands)
+
+    for component, entities in remove_commands do
+        for _, entity in entities do
+            if delete_commands[entity] then
+                continue
+            end
+
+            world:remove(entity, component)
+        end
+    end
     table.clear(remove_commands)
+
     table.clear(delete_commands)
-
-    for _, id in deletes do
-        world:delete(id)
-    end
-
-    for component, ids in adds do
-        for _, id in ids do
-            if deletes[id] then
-                continue
-            end
-
-            world:add(id, component)
-        end
-    end
-
-    for component, ids in sets do
-        for id, value in ids do
-            if deletes[id] then
-                continue
-            end
-
-            world:set(id, component, value)
-        end
-    end
-
-    for component, ids in removes do
-        for _, id in ids do
-            if deletes[id] then
-                continue
-            end
-
-            world:remove(id, component)
-        end
-    end
 end
 
 local function add(entity: entity, component: id)
