@@ -38,7 +38,7 @@ jobs:
 
       - name: Lint
         run: |
-          selene crates/
+          selene lib/
 
   style:
     name: Styling
@@ -52,7 +52,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: v0.20.0
-          args: --check crates/
+          args: --check lib/
 
   test:
     name: Unit Testing
