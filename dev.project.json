@@ -1,0 +1,15 @@
+{
+  "name": "dev",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Packages": {
+        "$path": "Packages",
+        "jecs_utils": {
+          "$path": "lib"
+        }
+      }
+    }
+  }
+}

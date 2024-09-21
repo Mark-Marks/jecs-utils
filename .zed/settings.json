@@ -1,0 +1,51 @@
+// Folder-specific settings
+//
+// For a full list of overridable settings, and general information on folder-specific settings,
+// see the documentation: https://zed.dev/docs/configuring-zed#folder-specific-settings
+{
+  "lsp": {
+    "luau-lsp": {
+      "settings": {
+        "luau-lsp": {
+          "completion": {
+            "imports": {
+              "enabled": true,
+              "suggestServices": true,
+              "suggestRequires": false
+            }
+          },
+          "sourcemap": {
+            "rojoProjectFile": "dev.project.json"
+          },
+          "require": {
+            "mode": "relativeToFile",
+            "fileAliases": {
+              "@jecs_utils": "lib",
+              "@testkit": "test/testkit"
+            },
+            "directoryAliases": {
+              "@pkg": "Packages/"
+            }
+          }
+        },
+        "ext": {
+          "roblox": {
+            "enabled": false
+          },
+          "fflags": {
+            "override": {
+              "LuauTinyControlFlowAnalysis": "true"
+            },
+            "sync": true,
+            "enable_by_default": false
+          }
+        }
+      }
+    }
+  },
+  "languages": {
+    "TypeScript": {
+      "tab_size": 4
+    }
+  }
+}
