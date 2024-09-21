@@ -12,4 +12,3 @@ end
 
 task.spawn(start_process, "rojo sourcemap dev.project.json -o sourcemap.json --watch")
 task.spawn(start_process, "darklua process --config .darklua.json --watch lib/ dist/", { "ROBLOX_DEV=true" })
---task.spawn(start_process, "rojo serve dev.project.json")
