@@ -17,7 +17,7 @@ jobs:
 
       - name: Build
         run: |
-          lune run install-packages
+          lune run build
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
