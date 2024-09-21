@@ -63,7 +63,7 @@ function handle:set<T>(id: id<T>, value: T): handle
 end
 
 function handle:remove(id: id): handle
-    world():remove(self.entity, id)
+    self.world:remove(self.entity, id)
     return self
 end
 

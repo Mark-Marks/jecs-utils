@@ -87,7 +87,7 @@ local function flush()
     end
 
     for world in delete_commands do
-        table.clear(delete_commands)
+        table.clear(delete_commands[world])
     end
 end
 
