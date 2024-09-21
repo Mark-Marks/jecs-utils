@@ -3,6 +3,7 @@
 [![Wally](https://img.shields.io/github/v/tag/mark-marks/jecs-utils?&style=for-the-badge)](https://wally.run/package/mark-marks/jecs-utils)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](https://github.com/Mark-Marks/jecs-utils/blob/main/LICENSE)
 
+A set of utilities for [Jecs](https://github.com/ukendio/jecs)
 <br/>
 
 </div>
@@ -13,4 +14,4 @@
 - [handle](/lib/handle.luau) - Wrap `jecs.World` functions for faster (DX wise) operating on entities
 - [replicator](/lib/replicator.luau) - Keep track of all entities with the passed components and calculate differences
 - [ref](/lib/ref.luau) - Reference entities by key
-- [command_buffer](/lib/command_buffer.luau) - Buffer commands to prevent query invalidation
+- [command_buffer](/lib/command_buffer.luau) - Buffer commands to prevent iterator invalidation
