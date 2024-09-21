@@ -1,9 +1,10 @@
 --!strict
 --!optimize 2
 local handle = require("./handle")
+local jecs = require("./jecs")
 local WORLD = require("./world").get
 
-local refs = {}
+local refs: { [jecs.World]: { [any]: jecs.Entity } } = {}
 
 --- Gets an entity the given key references to.
 --- If the key is nil, an entirely new entity is created and returned.
@@ -16,10 +17,14 @@ local function ref(key: any): handle.handle
         return handle(world:entity())
     end
 
-    local entity = refs[key]
+    if not refs[world] then
+        refs[world] = {}
+    end
+
+    local entity = refs[world][key]
     if not entity then
         entity = world:entity()
-        refs[key] = entity
+        refs[world][key] = entity
     end
 
     return handle(entity)

@@ -4,16 +4,27 @@ local jecs = require("./jecs")
 type entity<T = nil> = jecs.Entity<T>
 type id<T = nil> = jecs.Id<T>
 
-local WORLD = require("./world").get
+local _world = require("./world")
+local WORLD = _world.get
+
+-- luau-lsp literally dies if you use the actual world type
+type jecs_world = any
 
 --- `map<component_id, array<entity_id>>`
-local add_commands: { [id]: { entity } } = {}
+local add_commands: { [jecs_world]: { [id]: { entity } } } = {}
 --- `map<component_id, array<entity_id, component_value>>`
-local set_commands: { [id]: { [entity]: any } } = {}
+local set_commands: { [jecs_world]: { [id]: { [entity]: any } } } = {}
 --- `map<component_id, array<entity_id>>`
-local remove_commands: { [id]: { entity } } = {}
+local remove_commands: { [jecs_world]: { [id]: { entity } } } = {}
 --- `array<entity_id>`
-local delete_commands: { entity } = {}
+local delete_commands: { [jecs_world]: { entity } } = {}
+
+_world.on_set(function(world)
+    add_commands[world] = {}
+    set_commands[world] = {}
+    remove_commands[world] = {}
+    delete_commands[world] = {}
+end)
 
 export type command_buffer = {
     --- Execute all buffered commands and clear the buffer
@@ -30,74 +41,86 @@ export type command_buffer = {
 }
 
 local function flush()
-    local world = WORLD()
-
-    for _, entity in delete_commands do
-        world:delete(entity)
-    end
-
-    for component, entities in add_commands do
+    for world, entities in delete_commands do
         for _, entity in entities do
-            if delete_commands[entity] then
-                continue
-            end
-
-            world:add(entity, component)
+            world:delete(entity)
         end
     end
-    table.clear(add_commands)
 
-    for component, entities in set_commands do
-        for entity, value in entities do
-            if delete_commands[entity] then
-                continue
+    for world, commands in add_commands do
+        for component, entities in commands do
+            for _, entity in entities do
+                if delete_commands[world][entity] then
+                    continue
+                end
+
+                world:add(entity, component)
             end
-
-            world:set(entity, component, value)
         end
+        table.clear(add_commands[world])
     end
-    table.clear(set_commands)
 
-    for component, entities in remove_commands do
-        for _, entity in entities do
-            if delete_commands[entity] then
-                continue
+    for world, commands in set_commands do
+        for component, entities in commands do
+            for entity, value in entities do
+                if delete_commands[world][entity] then
+                    continue
+                end
+
+                world:set(entity, component, value)
             end
-
-            world:remove(entity, component)
         end
+        table.clear(set_commands[world])
     end
-    table.clear(remove_commands)
 
-    table.clear(delete_commands)
+    for world, commands in remove_commands do
+        for component, entities in commands do
+            for _, entity in entities do
+                if delete_commands[world][entity] then
+                    continue
+                end
+
+                world:remove(entity, component)
+            end
+        end
+        table.clear(remove_commands[world])
+    end
+
+    for world in delete_commands do
+        table.clear(delete_commands)
+    end
 end
 
 local function add(entity: entity, component: id)
-    if not add_commands[component] then
-        add_commands[component] = {}
+    local world = WORLD()
+    if not add_commands[world][component] then
+        add_commands[world][component] = {}
     end
 
-    table.insert(add_commands[component], entity)
+    table.insert(add_commands[world][component], entity)
 end
 
 local function set<T>(entity: entity, component: id<T>, data: T)
-    if not set_commands[component] then
-        set_commands[component] = {}
+    local world = WORLD()
+    if not set_commands[world][component] then
+        set_commands[world][component] = {}
     end
 
-    set_commands[component][entity] = data
+    set_commands[world][component][entity] = data
 end
 
 local function remove(entity: entity, component: id)
-    if not remove_commands[component] then
-        remove_commands[component] = {}
+    local world = WORLD()
+    if not remove_commands[world][component] then
+        remove_commands[world][component] = {}
     end
 
-    table.insert(remove_commands[component], entity)
+    table.insert(remove_commands[world][component], entity)
 end
 
 local function delete(entity: entity)
-    table.insert(delete_commands, entity)
+    local world = WORLD()
+    table.insert(delete_commands[world], entity)
 end
 
 local command_buffer: command_buffer = {

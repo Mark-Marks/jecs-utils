@@ -30,7 +30,7 @@ type interface = {
     id: (self: handle) -> entity,
 }
 
-export type handle = typeof(setmetatable({} :: { entity: entity }, {} :: interface))
+export type handle = typeof(setmetatable({} :: { entity: entity, world: jecs.World }, {} :: interface))
 
 local handle = {} :: interface
 handle.__index = handle
@@ -38,26 +38,27 @@ handle.__index = handle
 function handle.new(entity: entity)
     local self = {
         entity = entity,
+        world = world(),
     }
 
     return setmetatable(self, handle)
 end
 
 function handle:has(...: id): boolean
-    return world():has(self.entity, ...)
+    return self.world:has(self.entity, ...)
 end
 
 handle.get = function(self: handle, a: id, b: id?, c: id?, d: id?)
-    return world():get(self.entity, a, b :: any, c :: any, d :: any)
+    return self.world:get(self.entity, a, b :: any, c :: any, d :: any)
 end :: any
 
 function handle:add<T>(id: id<T>): handle
-    world():add(self.entity, id)
+    self.world:add(self.entity, id)
     return self
 end
 
 function handle:set<T>(id: id<T>, value: T): handle
-    world():set(self.entity, id, value)
+    self.world:set(self.entity, id, value)
     return self
 end
 
@@ -67,7 +68,7 @@ function handle:remove(id: id): handle
 end
 
 function handle:delete()
-    world():delete(self.entity)
+    self.world:delete(self.entity)
 end
 
 function handle:id(): entity
