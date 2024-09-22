@@ -8,7 +8,7 @@ local spawn = require("util/spawn")
 spawn.spawn("rojo sourcemap dev.project.json -o sourcemap.json --watch")
 spawn.spawn("darklua process --config .darklua.json --watch lib/ dist/", { env = { ROBLOX_DEV = "true" } })
 
-task.wait(2.5)
+task.wait(1)
 
 while true do
     local start_commit = stdio.prompt("confirm", "Start commit? -- `y` to start a commit, `n` to exit the script")
