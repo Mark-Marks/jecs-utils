@@ -727,7 +727,6 @@ local function world_add(world: World, entity: i53, id: i53): ()
     end
 end
 
--- Symmetric like `World.add` but idempotent
 local function world_set(world: World, entity: i53, id: i53, data: unknown): ()
     local entityIndex = world.entityIndex
     local record = entityIndex.sparse[entity]
@@ -1020,38 +1019,38 @@ do
         if idr_t then
             for archetype_id in idr_t.cache do
                 local children = {}
-                local idr_o_archetype = archetypes[archetype_id]
+                local idr_t_archetype = archetypes[archetype_id]
 
-                local idr_o_types = idr_o_archetype.types
+                local idr_t_types = idr_t_archetype.types
 
-                for _, child in idr_o_archetype.entities do
+                for _, child in idr_t_archetype.entities do
                     table.insert(children, child)
                 end
 
-                for _, id in idr_o_types do
+                for _, id in idr_t_types do
                     if not ECS_IS_PAIR(id) then
                         continue
                     end
-
-                    local id_record = component_index[id]
-
-                    if id_record then
+                    local object = ECS_ENTITY_T_LO(id)
+                    if object == delete then
+                        local id_record = component_index[id]
                         local flags = id_record.flags
                         if bit32.band(flags, ECS_ID_DELETE) ~= 0 then
                             for _, child in children do
                                 -- Cascade deletions of it has Delete as component trait
                                 world_delete(world, child, destruct)
                             end
+
+                            break
                         else
-                            local object = ECS_ENTITY_T_LO(id)
-                            if object == delete then
-                                for _, child in children do
-                                    world_remove(world, child, id)
-                                end
+                            for _, child in children do
+                                world_remove(world, child, id)
                             end
                         end
                     end
                 end
+
+                archetype_destroy(world, idr_t_archetype)
             end
         end
 

@@ -26,7 +26,7 @@ while true do
     local commit_title = stdio.prompt("text", "Commit title -- leave blank to stop committing")
     if not commit_title or commit_title == "" then
         print("Stopping commit")
-        break
+        continue
     end
 
     local commit_messages = ""
