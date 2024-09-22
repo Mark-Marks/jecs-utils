@@ -19,7 +19,7 @@ while true do
 
     local _, check_result = pcall(spawn.start, "lune run check")
     if not check_result.ok then
-        print("Check didn't go ok, aborting commit")
+        warn("Check didn't go ok, aborting commit")
         break
     end
 
@@ -28,15 +28,16 @@ while true do
         print("Stopping commit")
         continue
     end
+    local commit_messages = { `-m`, commit_title }
 
-    local commit_messages = ""
     while true do
         local commit_message = stdio.prompt("text", "Commit message -- added to the description, leave blank to finish")
         if not commit_message or commit_message == "" then
             break
         end
 
-        commit_messages ..= `-m "{commit_message}" `
+        table.insert(commit_messages, "-m")
+        table.insert(commit_messages, commit_message)
     end
 
     local confirm = stdio.prompt("confirm", "Confirm?")
@@ -44,7 +45,7 @@ while true do
         break
     end
 
-    process.spawn("git", { "add", "." }, { stdio = "forward" })
-    process.spawn("git", { "commit", "-m", commit_title, commit_messages }, { stdio = "forward" })
-    process.spawn("git", { "push" }, { stdio = "forward" })
+    spawn.start("git add .")
+    process.spawn("git", { "commit", unpack(commit_messages) }, { stdio = "forward" })
+    spawn.start("git push")
 end
