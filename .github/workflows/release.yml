@@ -59,6 +59,10 @@ jobs:
       - name: Checkout Project
         uses: actions/checkout@v4
 
+      - name: Prepare for Distribution
+        run: |
+          lune run dist
+
       - name: Install Rokit
         uses: CompeyDev/setup-rokit@v0.1.2
 

@@ -1,14 +1,14 @@
 [package]
 name = "mark-marks/jecs-utils"
-version = "0.1.0"
+version = "0.1.1"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 license = "MIT"
 exclude = ["**"]
 include = [
     "default.project.json",
-    "lib",
-    "lib/**",
+    "dist",
+    "dist/**",
     "LICENSE",
     "wally.toml",
     "README.md",

@@ -23,6 +23,9 @@
               "@jecs_utils": "lib",
               "@jecs": "lib/jecs",
               "@testkit": "test/testkit"
+            },
+            "directoryAliases": {
+              "@lune": ".lune/.lune-defs/"
             }
           }
         },

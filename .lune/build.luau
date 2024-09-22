@@ -1,14 +1,6 @@
---!nocheck
-local process = require("@lune/process")
+--!strict
+local spawn = require("util/spawn")
 
-local function start_process(cmd: string, env: { string }?)
-    local arguments = string.split(cmd, " ")
-    local command = arguments[1]
-    table.remove(arguments, 1)
-
-    process.spawn(command, arguments, { stdio = "forward", env = env })
-end
-
-start_process("rojo sourcemap dev.project.json -o sourcemap.json")
-start_process("darklua process --config .darklua.json lib/ dist/", { "ROBLOX_DEV=false" })
-start_process("rojo build build.project.json -o build.rbxm")
+spawn.start("rojo sourcemap dev.project.json -o sourcemap.json")
+spawn.start("darklua process --config .darklua.json lib/ dist/", { env = { ROBLOX_DEV = "false" } })
+spawn.start("rojo build build.project.json -o build.rbxm")
