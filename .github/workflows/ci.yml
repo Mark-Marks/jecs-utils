@@ -71,7 +71,7 @@ jobs:
 
       - name: Download Jecs
         run: |
-          lune run download-jecs
+          lune run download-jecs ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Unit Tests
         run: |
