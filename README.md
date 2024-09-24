@@ -15,3 +15,4 @@ A set of utilities for [Jecs](https://github.com/ukendio/jecs)
 - [replicator](/lib/replicator.luau) - Keep track of all entities with the passed components and calculate differences
 - [ref](/lib/ref.luau) - Reference entities by key
 - [command_buffer](/lib/command_buffer.luau) - Buffer commands to prevent iterator invalidation
+- [spawner](/lib/spawner.luau) - Spawn entities with required components

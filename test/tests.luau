@@ -1,14 +1,17 @@
 --!strict
 -- stylua: ignore start
-local jecs = require("../jecs")
+local jecs = require("@jecs")
 local jecs_utils = require("@jecs_utils")
 local testkit = require("@testkit")
+
+type entity<T = nil> = jecs.Entity<T>
 
 local collect = jecs_utils.collect
 local handle = jecs_utils.handle
 local replicator = jecs_utils.replicator
 local ref = jecs_utils.ref
 local command_buffer = jecs_utils.command_buffer
+local spawner = jecs_utils.spawner
 
 local signal = require("./signal")
 
@@ -230,6 +233,52 @@ TEST("jecs_utils.command_buffer", function()
         command_buffer.flush()
 
         CHECK(not world:contains(entity))
+    end
+end)
+
+TEST("jecs_utils.spawner()", function()
+    do CASE "spawn"
+        local world = jecs.World.new()
+        jecs_utils.initialize(world)
+
+        local c1: entity<number> = world:component()
+        local c2: entity<string> = world:component()
+        local c3: entity<{}> = world:component()
+
+        local t1 = world:entity()
+
+        local entity_spawner = spawner(c1, c2, c3, t1)
+
+        local tbl = {}
+
+        local idx = entity_spawner.spawn(1234, "abcdef", tbl)
+        CHECK(world:contains(idx))
+        CHECK(world:get(idx, c1) == 1234)
+        CHECK(world:get(idx, c2) == "abcdef")
+        CHECK(world:get(idx, c3) == tbl)
+        CHECK(world:has(idx, t1))
+    end
+
+    do CASE "spawn_with_handle"
+        local world = jecs.World.new()
+        jecs_utils.initialize(world)
+
+        local c1: entity<number> = world:component()
+        local c2: entity<string> = world:component()
+        local c3: entity<{}> = world:component()
+
+        local t1 = world:entity()
+
+        local entity_spawner = spawner(c1, c2, c3, t1)
+
+        local tbl = {}
+
+        local ent = entity_spawner.spawn_with_handle(1234, "abcdef", tbl)
+        CHECK(world:contains(ent:id()))
+        CHECK(ent:get(c1) == 1234)
+        CHECK(ent:get(c2) == "abcdef")
+        CHECK(ent:get(c3) == tbl)
+        CHECK(ent:has(t1))
     end
 end)
 
