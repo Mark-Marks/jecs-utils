@@ -4,11 +4,17 @@ local stdio = require("@lune/stdio")
 local task = require("@lune/task")
 
 local spawn = require("util/spawn")
+local watch = require("util/watch")
+
+task.spawn(watch, "wally.toml", function()
+    spawn.spawn("lune run install-packages")
+end, false)
+spawn.start("lune run install-packages")
 
 spawn.spawn("rojo sourcemap dev.project.json -o sourcemap.json --watch")
 spawn.spawn("darklua process --config .darklua.json --watch lib/ dist/", { env = { ROBLOX_DEV = "true" } })
 
-task.wait(1)
+task.wait(2.5)
 
 while true do
     local start_commit = stdio.prompt("confirm", "Start commit? -- `y` to start a commit, `n` to exit the script")

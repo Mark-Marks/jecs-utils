@@ -55,3 +55,7 @@ WallyPatches
 roblox.toml
 sourcemap.json
 globalTypes.d.luau
+# Used for testing, unfortunately we can't just install it with wally and expect it to work in vanilla luau
+jecs.luau
+# Stores Github PAT
+.env

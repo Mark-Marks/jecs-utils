@@ -2,18 +2,20 @@
 local fs = require("@lune/fs")
 local task = require("@lune/task")
 
-local function watch(path: string, on_change: (path: string, contents: string) -> ())
+local function watch(path: string, on_change: (path: string, contents: string) -> (), run_initially: boolean?)
     local initial_metadata = fs.metadata(path)
     if not initial_metadata.exists then
         return
     end
 
-    local initial_contents = fs.readFile(path)
+    if run_initially then
+        local initial_contents = fs.readFile(path)
 
-    local initial_success, why = pcall(on_change :: any, path, initial_contents) -- :: any because otherwise it shits itself and the type doesn't give (boolean, string)??
-    if not initial_success then
-        warn(`There was an error while trying to start the watcher thread:\n{why}`)
-        return
+        local initial_success, why = pcall(on_change :: any, path, initial_contents) -- :: any because otherwise it shits itself and the type doesn't give (boolean, string)??
+        if not initial_success then
+            warn(`There was an error while trying to start the watcher thread:\n{why}`)
+            return
+        end
     end
 
     local last_modification = initial_metadata.modifiedAt

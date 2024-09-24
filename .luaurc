@@ -3,6 +3,6 @@
     "aliases": {
         "jecs_utils": "lib",
         "testkit": "test/testkit",
-        "jecs": "lib/jecs"
+        "jecs": "jecs"
     }
 }

@@ -1,6 +1,6 @@
 --!strict
 -- stylua: ignore start
-local jecs = require("@jecs")
+local jecs = require("../jecs")
 local jecs_utils = require("@jecs_utils")
 local testkit = require("@testkit")
 
