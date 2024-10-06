@@ -1,6 +1,6 @@
 [package]
 name = "mark-marks/jecs-utils"
-version = "0.1.4"
+version = "0.1.5"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 license = "MIT"
@@ -15,4 +15,4 @@ include = [
 ]
 
 [dependencies]
-jecs = "ukendio/jecs@0.3.0"
+jecs = "ukendio/jecs@0.3.2"
