@@ -4,11 +4,11 @@ description = "A set of utilities for jecs"
 authors = ["marked/Mark-Marks"]
 repository = "https://github.com/mark-marks/jecs-utils"
 license = "MIT"
-
-include = ["src", "src/**", "LICENSE", "pesde.toml", "README.md"]
+includes = ["lib", "LICENSE", "pesde.toml", "README.md"]
 
 [target]
 environment = "luau"
+lib = "lib/init.luau"
 
 [indices]
 default = "https://github.com/daimond113/pesde-index"
