@@ -1,5 +1,5 @@
 --!strict
-local jecs = require("@jecs")
+local jecs = require("../jecs")
 type entity<T = nil> = jecs.Entity<T>
 type id<T = nil> = jecs.Id<T>
 

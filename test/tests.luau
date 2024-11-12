@@ -10,6 +10,7 @@ local collect = jecs_utils.collect
 local handle = jecs_utils.handle
 local replicator = jecs_utils.replicator
 local ref = jecs_utils.ref
+local ref_search = ref.search
 local command_buffer = jecs_utils.command_buffer
 local spawner = jecs_utils.spawner
 
@@ -104,13 +105,33 @@ TEST("jecs_utils.handle()", function()
 end)
 
 TEST("jecs_utils.ref()", function()
-    do CASE "ref(abc) == ref(abc)"
+    do CASE "set_ref"
         local world = jecs.World.new()
         jecs_utils.initialize(world)
 
         local a: number = ref(1234):id()
         local b: number = ref(1234):id()
         CHECK(a == b)
+    end
+
+    do CASE "search"
+        local world = jecs.World.new()
+        jecs_utils.initialize(world)
+
+        local a: number = ref(1234):id()
+        local b = ref_search(1234)
+        assert(b) -- give me the type refinements...
+        CHECK(a == b:id() :: number)
+    end
+
+    do CASE "clearer"
+        local world = jecs.World.new()
+        jecs_utils.initialize(world)
+
+        local a, a_clear = ref(1234);
+        (a_clear :: any)()
+        local b = ref(1234)
+        CHECK(b:id() :: number ~= a:id() :: number)
     end
 end)
 

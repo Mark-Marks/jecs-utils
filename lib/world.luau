@@ -1,6 +1,6 @@
 --!strict
 --!optimize 2
-local jecs = require("@jecs")
+local jecs = require("../jecs")
 
 local WORLD: jecs.World
 

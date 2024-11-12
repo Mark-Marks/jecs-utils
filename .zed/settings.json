@@ -21,8 +21,8 @@
             "mode": "relativeToFile",
             "fileAliases": {
               "@jecs_utils": "lib",
-              "@jecs": "Packages/jecs",
-              "@testkit": "test/testkit"
+              "@testkit": "test/testkit",
+              "@jecs": "Packages/jecs"
             },
             "directoryAliases": {
               "@lune": ".lune/.lune-defs/"

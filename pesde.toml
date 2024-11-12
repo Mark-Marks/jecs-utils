@@ -1,0 +1,17 @@
+name = "mark_marks/jecs_utils"
+version = "0.1.6"
+description = "A set of utilities for jecs"
+authors = ["marked/Mark-Marks"]
+repository = "https://github.com/mark-marks/jecs-utils"
+license = "MIT"
+
+include = ["src", "src/**", "LICENSE", "pesde.toml", "README.md"]
+
+[target]
+environment = "luau"
+
+[indices]
+default = "https://github.com/daimond113/pesde-index"
+
+[dependencies]
+jecs = { repo = "https://git.devmarked.win/marked/jecs-pesde", rev = "main" }
