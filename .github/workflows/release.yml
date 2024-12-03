@@ -72,9 +72,8 @@ jobs:
       - name: Wally Publish
         run: wally publish
 
-      # No pesde releases for now, jecs doesn't have an official pesde package
-      #- name: Pesde Login
-      #  run: pesde auth login --token "${{ secrets.PESDE_AUTH_TOKEN }}"
+      - name: Pesde Login
+        run: pesde auth login --token "${{ secrets.PESDE_AUTH_TOKEN }}"
 
-      #- name: Pesde Publish
-      #  run: pesde publish
+      - name: Pesde Publish
+        run: pesde publish
