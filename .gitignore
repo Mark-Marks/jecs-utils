@@ -44,7 +44,9 @@ dist/
 # Wally files
 DevPackages
 Packages
+luau_packages
 wally.lock
+pesde.lock
 WallyPatches
 
 # Typescript
@@ -55,7 +57,6 @@ WallyPatches
 roblox.toml
 sourcemap.json
 globalTypes.d.luau
-# Used for testing, unfortunately we can't just install it with wally and expect it to work in vanilla luau
-jecs.luau
+jecs_src.luau
 # Stores Github PAT
 .env

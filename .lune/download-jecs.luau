@@ -64,4 +64,6 @@ end
 
 local gh_api_tag: gh_api_tag = serde.decode("json", response.body)
 
-spawn.start(`curl https://raw.githubusercontent.com/ukendio/jecs/{gh_api_tag.object.sha}/src/init.luau -o jecs.luau`)
+spawn.start(
+    `curl https://raw.githubusercontent.com/ukendio/jecs/{gh_api_tag.object.sha}/src/init.luau -o jecs_src.luau`
+)

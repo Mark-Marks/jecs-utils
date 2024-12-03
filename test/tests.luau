@@ -1,8 +1,8 @@
 --!strict
 -- stylua: ignore start
-local jecs = require("@jecs")
-local jecs_utils = require("@jecs_utils")
-local testkit = require("@testkit")
+local jecs = require("@pkg/jecs")
+local jecs_utils = require("@lib/init")
+local testkit = require("./testkit")
 
 type entity<T = nil> = jecs.Entity<T>
 

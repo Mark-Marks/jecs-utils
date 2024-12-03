@@ -1,8 +1,7 @@
 {
     "languageMode": "strict",
     "aliases": {
-        "jecs_utils": "lib",
-        "testkit": "test/testkit",
-        "jecs": "jecs"
+        "lib": "lib",
+        "pkg": "luau_packages"
     }
 }

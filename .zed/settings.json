@@ -18,15 +18,7 @@
             "rojoProjectFile": "dev.project.json"
           },
           "require": {
-            "mode": "relativeToFile",
-            "fileAliases": {
-              "@jecs_utils": "lib",
-              "@testkit": "test/testkit",
-              "@jecs": "Packages/jecs"
-            },
-            "directoryAliases": {
-              "@lune": ".lune/.lune-defs/"
-            }
+            "mode": "relativeToFile"
           }
         },
         "ext": {

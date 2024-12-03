@@ -2,7 +2,7 @@
 --!optimize 2
 local jecs = require("../jecs")
 type entity<T = nil> = jecs.Entity<T>
-type id<T = nil> = entity<T> | jecs.Pair
+type id<T = nil> = jecs.Id<T>
 
 local world = require("./world").get
 
