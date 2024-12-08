@@ -69,9 +69,14 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Download Jecs
+      - name: Install Packages
         run: |
-          lune run download-jecs ${{ secrets.GITHUB_TOKEN }}
+          pesde install
+
+      # Not needed anymore thanks to pesde 🥳
+      #- name: Download Jecs
+      #  run: |
+      #    lune run download-jecs ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Unit Tests
         run: |
