@@ -1,5 +1,5 @@
 name = "mark_marks/jecs_utils"
-version = "0.1.7-rc.0"
+version = "0.1.7-rc.1"
 description = "A set of utilities for jecs"
 authors = ["marked/Mark-Marks"]
 repository = "https://github.com/mark-marks/jecs-utils"

@@ -1,6 +1,6 @@
 [package]
 name = "mark-marks/jecs-utils"
-version = "0.1.7-rc.0"
+version = "0.1.7-rc.1"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 license = "MIT"
