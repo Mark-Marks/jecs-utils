@@ -1,4 +1,4 @@
-# sapphire-utils
+# jecs-utils
 [![CI](https://img.shields.io/github/actions/workflow/status/mark-marks/jecs-utils/ci.yml?style=for-the-badge&label=CI)](https://github.com/mark-marks/jecs-utils/actions/workflows/ci.yml)
 [![Wally](https://img.shields.io/github/v/tag/mark-marks/jecs-utils?&style=for-the-badge)](https://wally.run/package/mark-marks/jecs-utils)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](https://github.com/Mark-Marks/jecs-utils/blob/main/LICENSE)
@@ -7,6 +7,8 @@ A set of utilities for [Jecs](https://github.com/ukendio/jecs)
 <br/>
 
 </div>
+
+# Moved to [my git instance](https://git.devmarked.win/marked/hammer)
 
 ## Features
 
